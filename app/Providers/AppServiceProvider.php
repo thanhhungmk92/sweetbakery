@@ -5,6 +5,7 @@ use App\Slide;
 use App\Category;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
         //
         \Schema::defaultStringLength(191);
@@ -31,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
             View::share('categories', $categories);
         }
 
+         if(env('REDIRECT_HTTPS')) {
+            $url->formatScheme('https');
+        }
+
     }
     /**
      * Register any application services.
@@ -39,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if(env('REDIRECT_HTTPS')) {
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 }
