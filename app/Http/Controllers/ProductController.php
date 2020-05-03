@@ -25,13 +25,14 @@ class ProductController extends Controller
     public function getProductDetail($id)
     {
         $product = Product::findOrFail($id);
+
         $categoryId = $product->category_id;
         $productRelated = Product::where('id', '<>', $id)->where('category_id', $categoryId)->paginate(3);
         $productNew = Product::where('new', 1)->orderBy('id','desc')->take(5)->get();
-        $productTop = DB::table('Bill_Details')->whereNull('Bill_Details.deleted_at')
-                     ->join('Products', 'Bill_Details.product_id', '=', 'Products.id')
-                     ->selectRaw('product_id as id, Products.name as name, Products.unit_price as unit_price, Products.promotion_price as promotion_price, Products.image as image, SUM(quantity) as sum')
-                     ->groupBy('product_id', 'Products.name', 'Products.unit_price', 'Products.promotion_price', 'image')
+        $productTop = DB::table('bill_details')->whereNull('bill_details.deleted_at')
+                     ->join('products', 'bill_details.product_id', '=', 'products.id')
+                     ->selectRaw('product_id as id, products.name as name, products.unit_price as unit_price, products.promotion_price as promotion_price, products.image as image, SUM(quantity) as sum')
+                     ->groupBy('product_id', 'products.name', 'products.unit_price', 'products.promotion_price', 'image')
                      ->orderBy('sum', 'desc')
                      ->take(5)->get();
         $comments = Comment::where('product_id',$id)->OrderBy('id','desc')->get();
@@ -46,7 +47,7 @@ class ProductController extends Controller
         $max = $data["max_slider"];
         if($min <> '0' && $max <> '500000') {
             $strMin = str_limit($min, -3, "");
-            $strMax = str_limit($max, -3, "");   
+            $strMax = str_limit($max, -3, "");
         }
         else {
             $strMin = $min;
@@ -55,10 +56,10 @@ class ProductController extends Controller
         $products =  new Product;
         if($productKey != "") {
             $products = $products->where('name', 'like', "%".$productKey."%")
-            ->orWhere('description','like',"%".$productKey."%");   
-        }    
+            ->orWhere('description','like',"%".$productKey."%");
+        }
         $products = $products->WhereBetween('unit_price', [$strMin, $strMax]);
-        $products = $products->paginate(8); 
+        $products = $products->paginate(8);
         return view('page.products.search_product', compact('productKey', 'products','strMin','strMax'));
     }
 
