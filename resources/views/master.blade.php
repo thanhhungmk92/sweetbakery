@@ -23,7 +23,19 @@
 	<link rel="stylesheet" href="source/assets/dest/css/slide.css">
 	<!-- <link rel="stylesheet" href="source/assets/dest/css/special.css"> -->
 	<!-- <link rel="stylesheet" href="css/jquery-ui.css"> -->
-	<link rel="stylesheet" title="style" href="source/assets/dest/css/huong-style.css"> 
+	<link rel="stylesheet" title="style" href="source/assets/dest/css/huong-style.css">
+	<style>
+		.footer iframe {
+			width: auto !important;
+		}
+
+		@media screen and (max-width: 767px) {
+			.w3layouts_mail_grid {
+				display: grid !important;
+			}
+		}
+
+	</style>
 </head>
 <body onload="now();">
 	@include('header')
@@ -39,7 +51,7 @@
 			<div class="clearfix"></div>
 		</div> <!-- .container -->
 	</div> <!-- .copyright -->
-	
+
 	@yield('script')
 	<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"></span></a>
 	<!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
@@ -79,11 +91,11 @@ $(document).ready(function now($) {
 			$(".header-bottom").removeClass('fixNav')
 		}
 	})
-		
+
 	$("#search").keyup(function(){
 		var key = $(this).val();
 		var categoryId = $(this).parent().parent().find("#categoryId").val();
-		
+
 		if ($(this).val() == "") {
 			$('div#back_result').css({'display':'none'});
 		}
@@ -100,7 +112,7 @@ $(document).ready(function now($) {
 			}
 
 			});
-		}	
+		}
 	});
 
 	$( ".btncomment" ).click(function() {
@@ -133,11 +145,11 @@ $(document).ready(function now($) {
                     	result += "<a class='remove remove-comment' title='Remove comment' style='float:right;'>"+
                             	"<i class='fa fa-trash-o'></i>"+
                             "</a>"
-                    }        
+                    }
                     result += "</h4>"+
                         	""+obj.content+""+
                     	"</div>"+
-                	"</div>"; 
+                	"</div>";
                     console.log(result);
                 	$('#before-comment').before(result);
                 	// $('#before-comment').eq(1).removeAttr('id');
@@ -146,7 +158,7 @@ $(document).ready(function now($) {
 		});
 	});
 
-	$(document).on("click",".remove-comment",function() {	
+	$(document).on("click",".remove-comment",function() {
 		var commentId = $(this).parent().find("#commentId").val();
 		var proId = $(this).parent().find("#proId").val();
 		var checkstr =  confirm('Bạn muốn xóa comment này');
@@ -158,7 +170,7 @@ $(document).ready(function now($) {
 				dataType: 'html',
 				url: '/comment/delete/'+commentId+'',
 				data: "proId="+proId,
-				success: 
+				success:
 					function (data) {
 						var obj = jQuery.parseJSON(data);
 						console.log(obj);
@@ -167,7 +179,7 @@ $(document).ready(function now($) {
 			});
 		}
 		else
-			return false;		
+			return false;
 	});
 
 	$(document).on("click",".submit-cart",function(event) {
@@ -180,10 +192,10 @@ $(document).ready(function now($) {
 			},
     		type: 'post',
     		dataType: 'html',
-   			url: '<?php echo url('/cart/add');?>/'+productId, 
-    		success: 
+   			url: '<?php echo url('/cart/add');?>/'+productId,
+    		success:
         		function (data) {
-        			var result = ''; 
+        			var result = '';
         			var total = 0;
         			var totalQty = 0;
         			var cart = '';
@@ -192,10 +204,10 @@ $(document).ready(function now($) {
         			$.each( obj, function( key, value ) {
         				total += (value.qty*value.price);
         				totalQty += parseInt(value.qty);
-        				console.log(value); 
+        				console.log(value);
 					   	result += "<div class='cart-item'>" +
-		                		"<div class='media'>" + 
-		                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+			             
+		                		"<div class='media'>" +
+		                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+
 		                		"<div class='media-body'>"+
 		                    	"<input type='hidden' value='"+value.rowId+"' id='rowId'>"+
 		                    	"<a ><button type='button' class='remove-cart-item deleteCart'>×</button></a>"+
@@ -242,9 +254,9 @@ $(document).ready(function now($) {
         	type: 'get',
         	dataType: 'html',
        		url: '<?php echo url('/cart/delete');?>/'+rowId,
-        	success: 
+        	success:
     			function (data) {
-    				var result = ''; 
+    				var result = '';
         			var total = 0;
         			var totalQty = 0;
         			var cart ='';
@@ -258,10 +270,10 @@ $(document).ready(function now($) {
 	        		$.each( obj, function( key, value ) {
         				total += (value.qty*value.price);
         				totalQty += parseInt(value.qty);
-        				console.log(value); 
+        				console.log(value);
 					   	result += "<div class='cart-item'>" +
-		                		"<div class='media'>" + 
-		                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+			             
+		                		"<div class='media'>" +
+		                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+
 		                		"<div class='media-body'>"+
 		                		"<input type='hidden' value='"+value.rowId+"' id='rowId'>"+
 		                    	"<a><button type='button' class='remove-cart-item deleteCart'>×</button></a>"+
@@ -281,7 +293,7 @@ $(document).ready(function now($) {
 								"<a href='{{url('cart')}}' class='beta-btn primary text-center'>Đặt hàng <i class='fa fa-chevron-right'></i></a>"+
 							"</div>"+
 						"</div>"
-						
+
 			        if(totalQty>0 ){
 			            strText = totalQty;
 			            $('div#block').css({'display':'block'});
@@ -296,18 +308,18 @@ $(document).ready(function now($) {
 		        	console.log(cart);
 	        		$('.beta-select').html(cart);
              		$('#add-cart-item').html(result);
-             		$('#sum').html(numeral(sum).format('0,0')); 
+             		$('#sum').html(numeral(sum).format('0,0'));
              		if(sum == 0)
              		{
              			var urlCurrent = document.URL;
-             			if(urlCurrent.indexOf('index') == -1) 
+             			if(urlCurrent.indexOf('index') == -1)
              			{
              				if(urlCurrent.indexOf('categories') == -1)
              				{
              					window.location.href ='index?flash_message';
              				}
-             			} 
-             		}		
+             			}
+             		}
 	            },
 	            error: function (request, status, error) {
 				        // alert(request.responseText);
@@ -315,14 +327,14 @@ $(document).ready(function now($) {
 		});
 	});
 
-	$('.newQty').on('change keyup',function(){	
+	$('.newQty').on('change keyup',function(){
 		var newQty = $(this).val();
 		var rowID = $(this).parent().find('#rowID').val();
 		var proID = $(this).parent().find('#proID').val();
 		var amount = $(this).parent().parent().find('.sub_amount').text();
 		var value_amount = parseInt(amount) *1000;
 		var quantity = parseInt(newQty);
-		var total_amount = numeral(value_amount * quantity).format('0,0');	
+		var total_amount = numeral(value_amount * quantity).format('0,0');
 		if(newQty<=0){
 			alert('Vui lòng xem lại số lượng')
 		}
@@ -348,8 +360,8 @@ $(document).ready(function now($) {
         			total += (value.qty*value.price);
         			totalQty = totalQty+parseInt(value.qty);
         			result += "<div class='cart-item'>" +
-		                		"<div class='media'>" + 
-		                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+			             
+		                		"<div class='media'>" +
+		                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+
 		                		"<div class='media-body'>"+
 		                    	"<input type='hidden' value='"+value.rowId+"' id='rowId'>"+
 		                    	"<a><button type='button' class='remove-cart-item deleteCart'>×</button></a>"+
@@ -385,9 +397,9 @@ $(document).ready(function now($) {
         		$('.beta-select').html(cart);
 				$('#add-cart-item').html(result);
 				$('#sum').html(numeral(sum).format('0,0'));
-	             		
+
     			},
-    						
+
 			});
 		}
 	});
@@ -401,12 +413,12 @@ $(document).ready(function now($) {
 	    		type: 'get',
 	    		dataType: 'html',
 	   			url: '<?php echo url('/cart/delete');?>/'+rowId,
-	    		success: 
+	    		success:
 	    			function (data) {
 	    				tr.fadeOut(500, function(){
 	       				 $(this).remove();
 	    				});
-	    				var result = ''; 
+	    				var result = '';
 	        			var total = 0;
 	        			var totalQty = 0;
 	        			var cart = '';
@@ -417,10 +429,10 @@ $(document).ready(function now($) {
 	        			$.each( obj, function( key, value ) {
 	        				total += (value.qty*value.price);
 	        				totalQty += parseInt(value.qty);
-	        				console.log(value); 
+	        				console.log(value);
 						   	result += "<div class='cart-item'>" +
-			                		"<div class='media'>" + 
-			                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+			             
+			                		"<div class='media'>" +
+			                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+
 			                		"<div class='media-body'>"+
 			                		"<input type='hidden' value='"+value.rowId+"' id='rowId'>"+
 			                    	"<a><button type='button' class='remove-cart-item deleteCart'>×</button></a>"+
@@ -458,7 +470,7 @@ $(document).ready(function now($) {
 	             		console.log(sum);
 	             		if(sum == 0)
 	             		{
-	             			window.location ='index?flash_message';	
+	             			window.location ='index?flash_message';
 	             		}
 	             	},
 	             	error: function (request, status, error) {
@@ -482,9 +494,9 @@ $(document).ready(function now($) {
         		dataType: 'html',
        			url:  '/cart/add/'+proId+'/qty',
        			data: "qty=" + qty + "& id=" + proId ,
-        		success: 
+        		success:
 	        		function (data) {
-	        			var result = ''; 
+	        			var result = '';
 	        			var total = 0;
 	        			var totalQty = 0;
 	        			var cart ='';
@@ -493,10 +505,10 @@ $(document).ready(function now($) {
 	        			$.each( obj, function( key, value ) {
 	        				total += (value.qty*value.price);
 	        				totalQty += parseInt(value.qty);
-	        				console.log(value); 
+	        				console.log(value);
 						   	result += "<div class='cart-item'>" +
-			                		"<div class='media'>" + 
-			                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+			             
+			                		"<div class='media'>" +
+			                		"<a class='pull-left' href='#''><img src='source/image/product/"+value.options.img+"' alt='' ></a>"+
 			                		"<div class='media-body'>"+
 			                    	"<input type='hidden' value='"+value.rowId+"' id='rowId'>"+
 			                    	"<a ><button type='button' class='remove-cart-item deleteCart'>×</button></a>"+
@@ -533,7 +545,7 @@ $(document).ready(function now($) {
 				        // alert(request.responseText);
 				    }
 		});
-	}); 
+	});
 
 	$(document).on("click",".paginate-product .pagination a",function(e){
 		e.preventDefault();
@@ -581,7 +593,7 @@ $(document).ready(function now($) {
 			},
 			phone : {
 				required : "* Bạn chưa nhập số điện thoại",
-				
+
 				minlength : "* Số điện thoại phải từ 10 số trở lên",
 				maxlength : "* Số điện thoại nhập tối đa 15 số ",
 				number : "* Số điện thoại bạn nhập không đúng",
@@ -591,19 +603,19 @@ $(document).ready(function now($) {
 				minlength : "* Ghi chú phải từ 10 ký tự",
 			},
 		},
-		
+
 	});
-		
+
 });
 </script>
 <script>
 	$('.value-plus').on('click', function(){
     	var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-    	divUpd.text(newVal); 
+    	divUpd.text(newVal);
     });
     $('.value-minus').on('click', function(){
     	var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-    	if(newVal>=1) divUpd.text(newVal);	
+    	if(newVal>=1) divUpd.text(newVal);
     });
 </script>
 </body>

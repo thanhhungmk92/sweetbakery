@@ -3,14 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-	<title>Admin</title>
-=======
 	<title>Sweet Bakery</title>
->>>>>>> f8bbae8ecd7cdaf945b1334a0b20bed9a7af1df4
 	<base href="{{asset('')}}">
-	
-	
 	<!-- <link href='http://fonts.googleapis.com/css?family=Dosis:300,400' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> -->
 	<!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> -->
@@ -24,15 +18,11 @@
 	<link rel="stylesheet" href="source/assets/dest/css/animate.css">
 	<link rel="stylesheet" href="source/assets/dest/css/style-modal.css">
 	<link rel="stylesheet" href="source/assets/dest/css/single.css">
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
 	<link rel="stylesheet" href="source/assets/dest/css/slide.css">
 	<link rel="stylesheet" href="source/assets/dest/css/special.css">
 	<!-- <link rel="stylesheet" href="css/jquery-ui.css"> -->
 	<link rel="stylesheet" title="style" href="source/assets/dest/css/huong-style.css">
-	
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
@@ -40,9 +30,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-   
-
-   
 </head>
 <body>
 		@include('header')
@@ -59,7 +46,7 @@
 			<div class="clearfix"></div>
 		</div> <!-- .container -->
 	</div> <!-- .copyright -->
-	
+
 	@yield('script')
 <a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"></span></a>
 
@@ -90,7 +77,7 @@
 
 
 	<script>
-	$(document).ready(function($) {    
+	$(document).ready(function($) {
 		$(window).scroll(function(){
 			if($(this).scrollTop()>150){
 			$(".header-bottom").addClass('fixNav')
@@ -116,19 +103,19 @@
         		data: "newQty=" + newQty + "& rowID=" + rowID + "& proID=" + proID,
         		success: function (response) {
              	console.log(response);
-             	$('#update').html(response); 
+             	$('#update').html(response);
         		 }
         		// success: function (data)
         		// {
         		// 	if(data == "Ok")
         		// 	{
-        		// 		window.location = "cart"; 
+        		// 		window.location = "cart";
         		// 	}
         		// }
     			});
 				}
 		});
-		<?php } ?> 
+		<?php } ?>
 		$("#search").keyup(function(){
 			var key = $(this).val();
 			var categoryId = $(this).parent().parent().find("#categoryId").val();
@@ -149,31 +136,31 @@
 
 			});
 			}
-			
+
 		})
 		// $('div').on('focusout', function () {
   // 			$('div#back_result').css({'display':'none'});
 		// });
 		$("div.alert").delay(2000).slideUp();
 
-		$(".scroll").click(function(event){		
+		$(".scroll").click(function(event){
 			event.preventDefault();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
-		
+
 	})
 	</script>
 	<script>
 		$('.value-plus').on('click', function(){
     	var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
     	divUpd.text(newVal);
-    
+
     });
 
     $('.value-minus').on('click', function(){
     	var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
     	if(newVal>=1) divUpd.text(newVal);
-    	
+
     });
 	</script>
 	<script>
@@ -182,7 +169,7 @@
 		 	$("#valtg").val( $("#value2" ).text());
 		 	//alert($("#value2" ).text());
   			//event.preventDefault();
-	});  	
+	});
 </script>
 </body>
 </html>
